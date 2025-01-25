@@ -1,0 +1,44 @@
+version: "3.1"
+
+rules:
+
+- rule: Say goodbye anytime the user says goodbye
+  steps:
+  - intent: goodbye
+  - action: utter_goodbye
+
+- rule: Say 'I am a bot' anytime the user challenges
+  steps:
+  - intent: bot_challenge
+  - action: utter_iamabot
+
+- rule: Say 'show me dogs' anytime the user challenges
+  steps:
+  - intent: show_dogs
+  - action: action_show_dogs
+
+- rule: Say 'show me cats' anytime the user challenges
+  steps:
+  - intent: show_cats
+  - action: action_show_cats
+
+- rule: Say 'show me birds' anytime the user challenges
+  steps:
+  - intent: show_birds
+  - action: action_show_birds
+
+- rule: Say 'show me rabbits' anytime the user challenges
+  steps:
+  - intent: show_rabbits
+  - action: action_show_rabbits
+
+- rule: Say 'i want to order' anytime the user challenges
+  steps:
+  - intent: place_order
+  - action: action_place_order
+
+- rule: Say 'i want to change my details' anytime the user challenges
+  steps:
+  - intent: change_details
+  - action: action_change_details
+
