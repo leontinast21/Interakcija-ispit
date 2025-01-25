@@ -1,0 +1,21 @@
+<section fxLayout="column" fxLayoutAlign="center center" style="margin-top: 100px; margin-bottom: 150px;">
+  <form #f="ngForm" (ngSubmit)="onSubmit(f)" fxLayout="column" fxLayoutAlign="center center" style="text-align: center;">
+    <mat-form-field style="width: 300px; margin-bottom: 10px; margin-right: 50px;">
+      <input type="email" matInput placeholder="Your email" name="email" [(ngModel)]="email" required #emailInput="ngModel">
+      <mat-error *ngIf="emailInput.hasError('required')">Field should not be empty</mat-error>
+      <mat-error *ngIf="emailInput.hasError('email')">Please enter a valid email</mat-error>
+    </mat-form-field>
+
+    <mat-form-field style="width: 300px; margin-bottom: 10px;">
+      <input type="password" matInput placeholder="Your password" name="password" [(ngModel)]="password" required #passInput="ngModel" minlength="8">
+      <mat-hint align="end">{{passInput.value?.length}} / 8</mat-hint>
+      <mat-error *ngIf="passInput.hasError('required')">Field should not be empty</mat-error>
+    </mat-form-field>
+
+    <div style="margin-bottom: 10px;">
+      <a routerLink="/register" style="text-decoration: underline; color: rgb(63, 62, 62);">Register if you don't have an account?</a>
+    </div>
+
+    <button type="submit" mat-raised-button color="primary" style="margin-top: 20px; width: 200px;">Submit</button>
+  </form>
+</section>

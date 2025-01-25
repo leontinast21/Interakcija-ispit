@@ -1,0 +1,92 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<mat-toolbar color="grey" style="display: flex; justify-content: space-between; padding: 10px; background-color: #f2f2f2; ">
+  <div style="flex: 1; display: flex; align-items: center;">
+    <a href="https://www.facebook.com" target="_blank" style="margin-right: 10px; margin-left: 3%;">
+      <i class="fa fa-facebook-square" style="font-size:20px;color:rgb(89, 89, 89)"></i>
+    </a>
+    <a href="https://www.instagram.com" target="_blank" style="margin-right: 10px;">
+      <i class="fa fa-instagram" aria-hidden="true" style="font-size:20px; color:rgb(89, 89, 89)"></i>
+    </a>
+  </div>
+
+  <div style="flex: 1; text-align: center;">
+    <a routerLink="/" style="height: 30px; margin-top: 2%;">
+      <img src="https://images.squarespace-cdn.com/content/v1/572e05c45559862dca6424ff/1463971934544-QF606UIFUBLI50DWF1YD/petshop-logo-4+2.png" alt="Logo" style="height: 50px; width: 300px;">
+    </a>
+  </div>
+
+  <div style="flex: 1; display: flex; justify-content: flex-end; align-items: center;">
+    <!-- Provera da li je korisnik ulogovan -->
+    <span *ngIf="loggedInUser; else notLoggedIn" style="margin-right: 10px; color: #555; font-size: 20px;">
+      Welcome, {{ loggedInUser }}
+      <a routerLink="/profile" mat-raised-button color="primary" style="margin-left: 10px;">Profile</a>
+    </span>
+    <ng-template #notLoggedIn>
+      <a routerLink="/login" style="margin-right: 10px; color: #555; text-decoration: none; font-size: 20px;">Login</a>
+      <a routerLink="/register" style="margin-right: 10px; color: #555; text-decoration: none; font-size: 20px;">Register</a>
+    </ng-template>
+    <i routerLink="/basket" class="fa fa-shopping-basket" aria-hidden="true" style="font-size: 25px; color:rgb(86, 85, 85); margin-left: 2%; margin-right: 5%;"></i>
+    <!-- Prikaz dugmeta za odjavu ako je korisnik ulogovan -->
+    <button *ngIf="loggedInUser" (click)="logout()" mat-raised-button color="primary" style="margin-left: 10px;">Logout</button>
+  </div>
+</mat-toolbar>
+
+<mat-toolbar color="grey" style="height:35px ; background-color: #f2f2f2; display: flex; justify-content: center; padding: 10px; border-top: 0.5px solid rgb(164, 149, 149); border-bottom: 0.5px solid rgb(164, 149, 149);">
+  <a routerLink="/" style="margin: 0 15px; font-weight: bold;text-decoration: none; color: rgb(48, 44, 44); font-size: 15px;">HOME</a> 
+  <a routerLink="/catalog" style="margin: 0 15px; font-weight: bold; text-decoration: none; color: rgb(48, 44, 44); font-size: 15px;">CATALOG</a>
+ 
+</mat-toolbar>
+
+<router-outlet></router-outlet>
+
+<div *ngIf="chatOpen" class="chat-popup">
+  <div class="chat-header">
+    <span>Chat</span>
+    <button (click)="toggleChat()" style="border: none; background: none; cursor: pointer;">&times;</button>
+  </div>
+  <div class="chat-body">
+    <div *ngFor="let message of messages; let i = index"
+         [ngClass]="{'align-self-end user-message': message.sender === 'user', 'align-self-start bot-message': message.sender === 'bot'}"
+         class="chat-message">
+      <span [innerHTML]="message.text"></span>
+    </div>
+  </div>
+  <div class="chat-footer">
+    <textarea [(ngModel)]="userInput" class="chat-input" placeholder="Type your message..." (keyup.enter)="sendMessage()"></textarea>
+    <button class="send-button" (click)="sendMessage()">Send</button>
+  </div>
+</div>
+
+
+<footer style="background-color: #f2f2f2;  padding: 20px; display: flex; flex-direction: column; align-items: center; text-align: center; margin-top: 40px;">
+  <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+    <div>
+      <img src="https://images.squarespace-cdn.com/content/v1/572e05c45559862dca6424ff/1463971934544-QF606UIFUBLI50DWF1YD/petshop-logo-4+2.png" alt="Logo" style="height: 50px;">
+    </div>
+    <div>
+      <a href="https://www.facebook.com" target="_blank" style="margin-right: 10px;">
+        <i class="fa fa-facebook-square" style="font-size: 24px; color: #555;"></i>
+      </a>
+      <a href="https://www.instagram.com" target="_blank" style="margin-right: 10px;">
+        <i class="fa fa-instagram" aria-hidden="true" style="font-size: 24px; color: #555;"></i>
+      </a>
+    </div>
+  </div>
+  <p style="margin-top: 10px; font-size: 15px; font-family: Arial, Helvetica, sans-serif;">
+    Your pet store. Your pet's happiness. We offer a wide range of products and services for your furry friend, including high-quality food, exciting toys, comfortable bedding, and expert grooming services. From playful puppies to pampered pooches, we have everything you need to keep your pet happy and healthy. Our knowledgeable staff is always available to provide expert advice and personalized recommendations. Visit us today and discover why we're the preferred choice for pet owners in the community..
+  
+  
+
+    <div style="position: fixed; bottom: 20px; right: 20px;">
+      <button
+        (click)="toggleChat()"
+        style="background-color: #555; color: white; border: none; border-radius: 50%; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); cursor: pointer;"
+        title="Chat">
+        <i class="fa fa-comments" style="font-size: 24px;"></i>
+      </button>
+    </div>
+    
+  
+  </footer>

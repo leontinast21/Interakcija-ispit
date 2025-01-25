@@ -1,0 +1,45 @@
+<div class="profile-container">
+    <h2>Your Profile</h2>
+    <form (ngSubmit)="saveChanges()">
+      <mat-form-field appearance="outline" style="width: 100%;">
+        <mat-label>Name</mat-label>
+        <input matInput [(ngModel)]="user.name" name="name" required>
+      </mat-form-field>
+      <mat-form-field appearance="outline" style="width: 100%;">
+        <mat-label>Email</mat-label>
+        <input matInput [(ngModel)]="user.email" name="email" required>
+        <mat-error *ngIf="user.email?.length === 0">Email is required</mat-error>
+        <mat-error *ngIf="!isValidEmail(user.email)">Please enter a valid email address</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline" style="width: 100%;">
+        <mat-label>Password</mat-label>
+        <input matInput [(ngModel)]="user.password" name="password" type="password" required>
+        <mat-error *ngIf="user.password?.length === 0">Password is required</mat-error>
+        <mat-error *ngIf="!isValidPassword(user.password)">Password should contain at least 8 characters with one number.</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline" style="width: 100%;">
+        <mat-label>Address</mat-label>
+        <input matInput [(ngModel)]="user.address" name="address" required>
+        <mat-error *ngIf="user.address?.length === 0">Address is required</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline" style="width: 100%;">
+        <mat-label>Phone</mat-label>
+        <input matInput [(ngModel)]="user.phone" name="phone" required>
+        <mat-error *ngIf="user.phone?.length === 0">Phone number is required</mat-error>
+        <mat-error *ngIf="!isValidPhone(user.phone)">Please enter a valid phone number</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline" style="width: 100%;">
+        <mat-label>Select your favourite</mat-label>
+        <mat-select [(ngModel)]="user.favourite" name="favourite">
+          <mat-option value="dog">Dogs</mat-option>
+          <mat-option value="cat">Cats</mat-option>
+          <mat-option value="bird">Birds</mat-option>
+          <mat-option value="rabbit">Rabbits</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button mat-raised-button color="primary" type="submit">Save Changes</button>
+      <br>
+      
+    </form>
+  </div>
+  

@@ -1,0 +1,27 @@
+<div *ngFor="let product of basket; let i = index">
+  <mat-card style="margin-bottom: 20px;">
+    <div class="card-content">
+      <img mat-card-image class="product-image" [src]="product.image" alt="Product Image">
+      <div class="product-details">
+        <mat-card-title>{{ product.name }}</mat-card-title>
+        <p>Color: {{ product.color }}</p>
+        <p>Type: {{ product.type }}</p>
+        <p>Price: {{ product.price }}$</p>
+      </div>
+      <button mat-icon-button color="warn" (click)="removeFromBasket(i)" style="margin-right: 50px;">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+  </mat-card>
+
+  
+</div>
+
+
+<div class="total-price" *ngIf="basket.length > 0">
+  <p>Total Price: {{ totalPrice }}$</p>
+</div>
+
+<div *ngIf="basket.length === 0" class="empty-cart" style="height: 55%; display: flex; justify-content: center; align-items: center;">
+  <p>Your basket is empty.</p>
+</div>

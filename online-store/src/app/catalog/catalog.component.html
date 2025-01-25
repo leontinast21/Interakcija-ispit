@@ -1,0 +1,64 @@
+<div class="input-container">
+  <mat-form-field appearance="outline">
+    <mat-label>Filter products</mat-label>
+    <input matInput placeholder="Search" (input)="applyFilter($event)">
+  </mat-form-field>
+</div>
+
+<div style="display: flex; flex-wrap: wrap; margin-left: 20px; margin-bottom: 20px;">
+  <ng-container *ngIf="filteredProducts.length > 0; else noProducts">
+    <mat-card *ngFor="let product of filteredProducts" style="width: calc(25% - 20px); margin-right: 20px; margin-top: 20px;">
+      <mat-card-header>
+        <mat-card-title style="font-size: 20px;">{{ product.type }}</mat-card-title>
+      </mat-card-header>
+      <img mat-card-image [src]="product.image" alt="Product Image" style="height: 50%; width: 70%;">
+      <mat-card-content>
+        <p>Color: {{ product.color }}</p>
+        <p>Name: {{ product.name }}</p>
+        <p>Price: {{ product.price | currency }}</p>
+        <p>
+          Rating: 
+          <ng-container *ngFor="let star of [1, 2, 3, 4, 5]; let i = index">
+            <mat-icon color="warn" (click)="rateProduct(product, star)" [ngClass]="{'selected-star': product.rating >= star}">
+              {{ product.rating >= star ? 'star' : 'star_border' }}
+            </mat-icon>
+          </ng-container>
+        </p>
+      </mat-card-content>
+      <mat-card-actions style="justify-content: center;">
+        <button mat-raised-button color="primary" (click)="addToBasket(product)">Add to basket</button>
+      </mat-card-actions>
+      
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Reviews
+          </mat-panel-title>
+          <mat-panel-description>
+            View and add reviews
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div>
+          <ul>
+            <li *ngFor="let review of product.reviews">
+              <strong>{{ review.user }}:</strong> {{ review.comment }}
+            </li>
+          </ul>
+          <mat-form-field appearance="outline" style="width: 100%;">
+            <mat-label>Your name</mat-label>
+            <input matInput [(ngModel)]="newReviewUser">
+          </mat-form-field>
+          <mat-form-field appearance="outline" style="width: 100%;">
+            <mat-label>Add your review</mat-label>
+            <textarea matInput [(ngModel)]="newReview"></textarea>
+          </mat-form-field>
+          <button mat-raised-button color="primary" (click)="addReview(product)">Submit Review</button>
+        </div>
+      </mat-expansion-panel>
+    </mat-card>
+  </ng-container>
+  
+  <ng-template #noProducts>
+    <p>No products found.</p>
+  </ng-template>
+</div>
